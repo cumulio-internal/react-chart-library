@@ -1,0 +1,277 @@
+body {
+  background-color: rgb(245, 245, 245);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.grid-layout {
+  width: 1568px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Style for the grid items */
+.react-grid-item {
+  background: white;
+  border-radius: 12px;
+  z-index: 200;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+/* Only show hover effects in edit mode */
+.edit-mode .react-grid-item:hover {
+  border-color: rgb(216, 216, 216);
+}
+
+/* Style for the placeholder when dragging */
+.react-grid-placeholder {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  z-index: 100;
+}
+
+/* Base style for resize handles - hidden by default */
+.react-grid-item > .react-resizable-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: white;
+  padding: 0;
+  z-index: 1000;
+  box-shadow: 0 0 6px #0000001a, 0 0 2px #000000bf;
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: none; /* Hide by default */
+}
+
+/* Only show resize handles in edit mode */
+.edit-mode .react-grid-item > .react-resizable-handle {
+  display: block;
+}
+
+/* Show handles on hover only in edit mode */
+.edit-mode .react-grid-item:hover > .react-resizable-handle {
+  opacity: 1;
+}
+
+/* North and South handles - wider and shorter */
+.react-resizable-handle-n,
+.react-resizable-handle-s {
+  width: 18px !important;
+  height: 8px !important;
+  border-radius: 2px !important;
+}
+
+/* East and West handles - taller and narrower */
+.react-resizable-handle-e,
+.react-resizable-handle-w {
+  width: 8px !important;
+  height: 18px !important;
+  border-radius: 2px !important;
+}
+
+/* Position each handle */
+.react-resizable-handle-n {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: n-resize;
+}
+
+.react-resizable-handle-s {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: s-resize;
+}
+
+.react-resizable-handle-e {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: e-resize;
+}
+
+.react-resizable-handle-w {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: w-resize;
+}
+
+.react-resizable-handle-ne {
+  top: -6px;
+  right: -6px;
+  cursor: ne-resize;
+}
+
+.react-resizable-handle-nw {
+  top: -6px;
+  left: -6px;
+  cursor: nw-resize;
+}
+
+.react-resizable-handle-se {
+  bottom: -6px;
+  right: -6px;
+  cursor: se-resize;
+}
+
+.react-resizable-handle-sw {
+  bottom: -6px;
+  left: -6px;
+  cursor: sw-resize;
+}
+
+/* Dashboard container and header */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  width: 1568px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+}
+
+/* Toggle switch styles */
+.edit-mode-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.edit-mode-toggle input {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background-color: #e4e4e7;
+  border-radius: 20px;
+  margin-right: 8px;
+  transition: background-color 0.2s;
+}
+
+.toggle-slider:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.edit-mode-toggle input:checked + .toggle-slider {
+  background-color: #6366f1;
+}
+
+.edit-mode-toggle input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+/* Chart Library Styles */
+.chart-library {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(245, 245, 245);
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.chart-library-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.chart-library-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.chart-library-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 14px;
+}
+
+.chart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chart-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chart-item-header {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chart-preview {
+  padding: 16px;
+  height: 300px;
+}
+
+/* Buttons */
+.add-chart-button,
+.close-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.add-chart-button {
+  background: #6366f1;
+  color: white;
+}
+
+.close-button {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* Dashboard actions */
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
