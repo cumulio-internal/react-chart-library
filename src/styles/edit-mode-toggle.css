@@ -1,0 +1,44 @@
+.edit-mode-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.edit-mode-toggle input {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background-color: #e4e4e7;
+  border-radius: 20px;
+  margin-right: 8px;
+  transition: background-color 0.2s;
+}
+
+.toggle-slider:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.edit-mode-toggle input:checked + .toggle-slider {
+  background-color: #6366f1;
+}
+
+.edit-mode-toggle input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  font-size: 14px;
+  color: #4b5563;
+}

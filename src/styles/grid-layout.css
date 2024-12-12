@@ -1,0 +1,117 @@
+.grid-layout {
+  width: 1568px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Style for the grid items */
+.react-grid-item {
+  border-radius: 12px;
+  z-index: 200;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+/* Only show hover effects in edit mode */
+.edit-mode .react-grid-item:hover {
+  border-color: rgb(216, 216, 216);
+}
+
+/* Style for the placeholder when dragging */
+.react-grid-placeholder {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  z-index: 100;
+}
+
+/* Base style for resize handles - hidden by default */
+.react-grid-item > .react-resizable-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: white;
+  padding: 0;
+  z-index: 1000;
+  box-shadow: 0 0 6px #0000001a, 0 0 2px #000000bf;
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: none;
+}
+
+/* Only show resize handles in edit mode */
+.edit-mode .react-grid-item > .react-resizable-handle {
+  display: block;
+}
+
+/* Show handles on hover only in edit mode */
+.edit-mode .react-grid-item:hover > .react-resizable-handle {
+  opacity: 1;
+}
+
+/* Resize handle positions */
+.react-resizable-handle-n,
+.react-resizable-handle-s {
+  width: 18px !important;
+  height: 8px !important;
+  border-radius: 2px !important;
+}
+
+.react-resizable-handle-e,
+.react-resizable-handle-w {
+  width: 8px !important;
+  height: 18px !important;
+  border-radius: 2px !important;
+}
+
+.react-resizable-handle-n {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: n-resize;
+}
+
+.react-resizable-handle-s {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: s-resize;
+}
+
+.react-resizable-handle-e {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: e-resize;
+}
+
+.react-resizable-handle-w {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: w-resize;
+}
+
+.react-resizable-handle-ne {
+  top: -6px;
+  right: -6px;
+  cursor: ne-resize;
+}
+
+.react-resizable-handle-nw {
+  top: -6px;
+  left: -6px;
+  cursor: nw-resize;
+}
+
+.react-resizable-handle-se {
+  bottom: -6px;
+  right: -6px;
+  cursor: se-resize;
+}
+
+.react-resizable-handle-sw {
+  bottom: -6px;
+  left: -6px;
+  cursor: sw-resize;
+}

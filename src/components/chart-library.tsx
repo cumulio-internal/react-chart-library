@@ -5,14 +5,17 @@ import { dashboards, embedToken } from "../config/embed-token";
 import { LuzmoVizItemComponent } from "@luzmo/react-embed";
 import type { Layout } from "react-grid-layout";
 
+interface ExtendedLayout extends Layout {
+  dashboardId: string;
+}
+
 interface ChartLibraryProps {
-  onAddChart: (chart: Layout) => void;
+  onAddChart: (chart: ExtendedLayout) => void;
   onClose: () => void;
 }
 
 export function ChartLibrary({ onAddChart, onClose }: ChartLibraryProps) {
-  const [items, setItems] = useState<Layout[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [items, setItems] = useState<ExtendedLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -21,12 +24,14 @@ export function ChartLibrary({ onAddChart, onClose }: ChartLibraryProps) {
         const dashboardItems = await fetchDashboardItems(
           dashboards.chartLibrary
         );
+        console.log(dashboardItems);
         const layoutItems = dashboardItems.map((item) => ({
           i: item.id,
-          x: 0, // Default position, will be adjusted when added to grid
-          y: 0,
+          x: item.position.col,
+          y: item.position.row,
           w: item.position.sizeX,
           h: item.position.sizeY,
+          dashboardId: dashboards.chartLibrary,
         }));
         setItems(layoutItems);
       } catch (err) {
@@ -39,47 +44,35 @@ export function ChartLibrary({ onAddChart, onClose }: ChartLibraryProps) {
     getLibraryItems();
   }, []);
 
-  const filteredItems = items.filter((item) =>
-    item.i.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="chart-library">
       <div className="chart-library-header">
         <h1>Chart Library</h1>
-        <div className="chart-library-actions">
-          <input
-            type="search"
-            placeholder="Search charts..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
-          <button onClick={onClose} className="close-button">
-            Close
-          </button>
-        </div>
+        <button onClick={onClose} className="close-button">
+          ✕
+        </button>
       </div>
 
       <div className="chart-list">
-        {filteredItems.map((item) => (
+        {items.map((item) => (
           <div key={item.i} className="chart-item">
-            <div className="chart-item-header">
-              <button
-                onClick={() => onAddChart(item)}
-                className="add-chart-button"
-              >
-                Add to dashboard
-              </button>
-            </div>
+            <button
+              onClick={() => {
+                onAddChart(item);
+                onClose();
+              }}
+              className="add-chart-button"
+            >
+              Add to dashboard
+            </button>
             <div className="chart-preview">
               <LuzmoVizItemComponent
                 key={item.i}
                 authKey={embedToken.authKey}
                 authToken={embedToken.authToken}
-                dashboardId={dashboards.chartLibrary}
+                dashboardId={item.dashboardId}
                 itemId={item.i}
               />
             </div>

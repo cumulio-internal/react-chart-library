@@ -1,0 +1,72 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  width: 1568px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: 32px;
+}
+
+.grid-item-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.remove-chart-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1100;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background-color: #ef4444;
+  color: white;
+  display: none;
+}
+
+.remove-chart-button:hover {
+  background-color: #dc2626;
+}
+
+.edit-mode .grid-item-container:hover .remove-chart-button {
+  display: block;
+}
+
+.add-chart-from-library-button {
+  padding: 8px 16px;
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-chart-from-library-button:hover {
+  background-color: #4f46e5;
+}
+
+/* Optional: Add a disabled state */
+.add-chart-from-library-button:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
