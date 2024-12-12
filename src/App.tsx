@@ -152,6 +152,7 @@ function App() {
         <ChartLibrary
           onAddChart={handleAddChart}
           onClose={() => setShowLibrary(false)}
+          currentDashboardItems={items}
         />
       )}
     </div>

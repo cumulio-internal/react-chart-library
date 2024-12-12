@@ -12,28 +12,56 @@ interface ExtendedLayout extends Layout {
 interface ChartLibraryProps {
   onAddChart: (chart: ExtendedLayout) => void;
   onClose: () => void;
+  currentDashboardItems: ExtendedLayout[];
 }
 
-export function ChartLibrary({ onAddChart, onClose }: ChartLibraryProps) {
+interface DashboardItem {
+  id: string;
+  position: {
+    col: number;
+    row: number;
+    sizeX: number;
+    sizeY: number;
+  };
+}
+
+export function ChartLibrary({
+  onAddChart,
+  onClose,
+  currentDashboardItems,
+}: ChartLibraryProps) {
   const [items, setItems] = useState<ExtendedLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  const createLayoutItems = (items: DashboardItem[], dashboardId: string) =>
+    items.map((item) => ({
+      i: item.id,
+      x: item.position.col,
+      y: item.position.row,
+      w: item.position.sizeX,
+      h: item.position.sizeY,
+      dashboardId,
+    }));
 
   useEffect(() => {
     const getLibraryItems = async () => {
       try {
-        const dashboardItems = await fetchDashboardItems(
-          dashboards.chartLibrary
+        const [libraryItems, defaultItems] = await Promise.all([
+          fetchDashboardItems(dashboards.chartLibrary),
+          fetchDashboardItems(dashboards.defaultGrid),
+        ]);
+
+        const allItems = [
+          ...createLayoutItems(libraryItems, dashboards.chartLibrary),
+          ...createLayoutItems(defaultItems, dashboards.defaultGrid),
+        ];
+
+        const currentIds = new Set(currentDashboardItems.map((item) => item.i));
+        const availableItems = allItems.filter(
+          (item) => !currentIds.has(item.i)
         );
-        console.log(dashboardItems);
-        const layoutItems = dashboardItems.map((item) => ({
-          i: item.id,
-          x: item.position.col,
-          y: item.position.row,
-          w: item.position.sizeX,
-          h: item.position.sizeY,
-          dashboardId: dashboards.chartLibrary,
-        }));
-        setItems(layoutItems);
+
+        setItems(availableItems);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : "Failed to fetch chart library"
@@ -42,7 +70,7 @@ export function ChartLibrary({ onAddChart, onClose }: ChartLibraryProps) {
     };
 
     getLibraryItems();
-  }, []);
+  }, [currentDashboardItems]);
 
   if (error) return <div>Error: {error}</div>;
 
