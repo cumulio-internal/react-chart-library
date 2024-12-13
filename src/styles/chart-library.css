@@ -5,50 +5,72 @@
   bottom: 0;
   width: 400px;
   background: white;
-  z-index: 2000;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
   overflow-y: auto;
-  padding: 24px;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-  border-left: 1px solid #e5e7eb;
-  transition: transform 0.3s ease-in-out;
+  animation: slideIn 0.2s ease-out;
+  transform-origin: right;
 }
 
-.chart-library.hidden {
-  transform: translateX(100%);
+.chart-library.closing {
+  animation: slideOut 0.2s ease-in;
 }
 
-.chart-list,
-.chart-library-header {
-  width: 100%;
-  margin: 0;
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .chart-library-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .chart-library-header h1 {
   margin: 0;
   font-size: 24px;
-  font-weight: 600;
-  color: #111827;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #333;
 }
 
 .chart-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .chart-item {
   position: relative;
+  border: 1px solid #eee;
   border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  border: 1px solid #e5e7eb;
+  padding: 16px;
 }
 
 .chart-item-header {
@@ -78,15 +100,4 @@
 
 .add-chart-button:hover {
   background-color: #4f46e5;
-}
-
-.close-button {
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  background: #e5e7eb;
-  color: #374151;
 }

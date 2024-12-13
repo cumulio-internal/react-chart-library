@@ -32,6 +32,7 @@ export function ChartLibrary({
 }: ChartLibraryProps) {
   const [items, setItems] = useState<ExtendedLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   const createLayoutItems = (items: DashboardItem[], dashboardId: string) =>
     items.map((item) => ({
@@ -72,13 +73,18 @@ export function ChartLibrary({
     getLibraryItems();
   }, [currentDashboardItems]);
 
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(onClose, 200);
+  };
+
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="chart-library">
+    <div className={`chart-library ${isClosing ? "closing" : ""}`}>
       <div className="chart-library-header">
         <h1>Chart Library</h1>
-        <button onClick={onClose} className="close-button">
+        <button onClick={handleClose} className="close-button">
           ✕
         </button>
       </div>
@@ -89,7 +95,7 @@ export function ChartLibrary({
             <button
               onClick={() => {
                 onAddChart(item);
-                onClose();
+                handleClose();
               }}
               className="add-chart-button"
             >
