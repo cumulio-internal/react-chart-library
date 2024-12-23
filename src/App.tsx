@@ -1,87 +1,20 @@
-import { useEffect, useState } from "react";
-import GridLayout from "react-grid-layout";
-import { fetchDashboardItems } from "./utils/fetch-dashboard";
-import { dashboards, embedToken } from "./config/embed-token";
-import type { Layout } from "react-grid-layout";
-import { LuzmoVizItemComponent } from "@luzmo/react-embed";
 import { ChartLibrary } from "./components/chart-library";
-
-interface ExtendedLayout extends Layout {
-  dashboardId: string;
-}
+import { useDashboardGrid } from "./hooks/use-dashboard-grid";
+import { DashboardGrid } from "./components/dashboard-grid";
+import { dashboards } from "./config/embed-token";
 
 function App() {
-  const [items, setItems] = useState<ExtendedLayout[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [showLibrary, setShowLibrary] = useState(false);
-
-  useEffect(() => {
-    const getDashboardItems = async () => {
-      try {
-        const dashboardItems = await fetchDashboardItems(
-          dashboards.defaultGrid
-        );
-        console.log(dashboardItems);
-        const layoutItems = dashboardItems.map((item) => ({
-          i: item.id,
-          x: item.position.col,
-          y: item.position.row,
-          w: item.position.sizeX,
-          h: item.position.sizeY,
-          dashboardId: dashboards.defaultGrid,
-        }));
-        setItems(layoutItems);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch dashboard items"
-        );
-      }
-    };
-
-    getDashboardItems();
-  }, []);
-
-  const handleAddChart = (newChart: ExtendedLayout) => {
-    // Create a new chart with proper positioning
-    const chartWithPosition = {
-      i: newChart.i, // Preserve the original ID
-      x: 0,
-      y: Infinity,
-      w: newChart.w, // Keep original width
-      h: newChart.h, // Keep original height
-      dashboardId: newChart.dashboardId,
-    };
-
-    // Add the new chart to the grid
-    setItems((currentItems) => [...currentItems, chartWithPosition]);
-    setShowLibrary(false);
-
-    // Scroll to bottom with animation
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
-    }, 100); // Small delay to ensure the new chart is rendered
-  };
-
-  const handleRemoveChart = (itemId: string) => {
-    setItems((currentItems) =>
-      currentItems.filter((item) => item.i !== itemId)
-    );
-  };
-
-  const handleLayoutChange = (newLayout: Layout[]) => {
-    // Preserve the dashboardId when updating the layout
-    const updatedLayout = newLayout.map((item) => ({
-      ...item,
-      dashboardId:
-        items.find((oldItem) => oldItem.i === item.i)?.dashboardId ||
-        dashboards.defaultGrid,
-    }));
-    setItems(updatedLayout);
-  };
+  const {
+    items,
+    error,
+    isEditMode,
+    showLibrary,
+    handleAddChart,
+    handleRemoveChart,
+    handleLayoutChange,
+    setIsEditMode,
+    setShowLibrary,
+  } = useDashboardGrid();
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -111,42 +44,12 @@ function App() {
         </div>
       </div>
 
-      <GridLayout
-        layout={items}
-        cols={48}
-        rowHeight={0}
-        width={1584}
-        className={`grid-layout ${isEditMode ? "edit-mode" : ""}`}
-        margin={[16, 16]}
-        useCSSTransforms={false}
-        isDraggable={isEditMode}
-        isResizable={isEditMode}
-        resizeHandles={["s", "w", "e", "n", "sw", "nw", "se", "ne"]}
-        compactType="vertical"
-        preventCollision={false}
+      <DashboardGrid
+        items={items}
+        isEditMode={isEditMode}
         onLayoutChange={handleLayoutChange}
-      >
-        {items.map((item) => (
-          <div key={item.i} className="grid-item-container">
-            {isEditMode && (
-              <button
-                className="remove-chart-button"
-                onClick={() => handleRemoveChart(item.i)}
-              >
-                Remove
-              </button>
-            )}
-            <LuzmoVizItemComponent
-              key={item.i}
-              authKey={embedToken.authKey}
-              authToken={embedToken.authToken}
-              dashboardId={item.dashboardId}
-              itemId={item.i}
-              canFilter="all"
-            />
-          </div>
-        ))}
-      </GridLayout>
+        onRemoveChart={handleRemoveChart}
+      />
 
       {showLibrary && (
         <ChartLibrary
@@ -155,6 +58,19 @@ function App() {
           currentDashboardItems={items}
         />
       )}
+
+      <div className="dashboard-footer">
+        <div className="dashboard-ids">
+          <div>
+            <span className="dashboard-id-label">Default Grid ID: </span>
+            <span className="dashboard-id">{dashboards.defaultGrid}</span>
+          </div>
+          <div>
+            <span className="dashboard-id-label">Chart Library ID: </span>
+            <span className="dashboard-id">{dashboards.chartLibrary}</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

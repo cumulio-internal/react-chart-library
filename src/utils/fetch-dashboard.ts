@@ -1,28 +1,5 @@
 import { embedToken } from "../config/embed-token";
-
-interface Item {
-  id: string;
-  position: {
-    sizeX: number;
-    sizeY: number;
-    row: number;
-    col: number;
-  };
-}
-
-interface ApiResponse {
-  rows: [
-    {
-      contents: {
-        views: [
-          {
-            items: Item[];
-          }
-        ];
-      };
-    }
-  ];
-}
+import type { DashboardApiItem, DashboardApiResponse } from "../types";
 
 // Define the URL
 const url = "https://api.luzmo.com/0.1.0/securable";
@@ -38,7 +15,7 @@ export class DashboardFetchError extends Error {
 // Function to fetch data and parse items
 export async function fetchDashboardItems(
   dashboardId: string
-): Promise<Item[]> {
+): Promise<DashboardApiItem[]> {
   if (!dashboardId) {
     throw new DashboardFetchError("Dashboard ID is required");
   }
@@ -68,7 +45,7 @@ export async function fetchDashboardItems(
       throw new DashboardFetchError(`HTTP error! status: ${response.status}`);
     }
 
-    const data: ApiResponse = await response.json();
+    const data: DashboardApiResponse = await response.json();
 
     if (!data.rows?.[0]?.contents?.views?.[0]?.items) {
       throw new DashboardFetchError("Invalid dashboard data structure");

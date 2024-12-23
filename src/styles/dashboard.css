@@ -18,6 +18,27 @@
   height: 32px;
 }
 
+.dashboard-footer {
+  margin-top: 20px;
+  padding: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+.dashboard-ids {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-id-label {
+  font-weight: 500;
+}
+
+.dashboard-id {
+  font-family: monospace;
+}
+
 .grid-item-container {
   position: relative;
   width: 100%;
