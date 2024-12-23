@@ -2,6 +2,7 @@ import { ChartLibrary } from "./components/chart-library";
 import { useDashboardGrid } from "./hooks/use-dashboard-grid";
 import { DashboardGrid } from "./components/dashboard-grid";
 import { dashboards } from "./config/embed-token";
+import { useState } from "react";
 
 function App() {
   const {
@@ -16,6 +17,9 @@ function App() {
     setShowLibrary,
   } = useDashboardGrid();
 
+  // This is only used to show the pointing arrow when the user has never been in edit mode
+  const [hasEverBeenEdited, setHasEverBeenEdited] = useState(false);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -24,6 +28,7 @@ function App() {
     <div className="dashboard-container">
       <div className="dashboard-header">
         <div className="dashboard-actions">
+          {!hasEverBeenEdited && <div className="arrow"></div>}
           {isEditMode && (
             <button
               className="add-chart-from-library-button"
@@ -36,7 +41,10 @@ function App() {
             <input
               type="checkbox"
               checked={isEditMode}
-              onChange={(e) => setIsEditMode(e.target.checked)}
+              onChange={(e) => {
+                setIsEditMode(e.target.checked);
+                setHasEverBeenEdited(true);
+              }}
             />
             <span className="toggle-slider"></span>
             <span className="toggle-label">Edit Mode</span>

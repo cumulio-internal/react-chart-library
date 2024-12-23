@@ -3,6 +3,7 @@ import { LuzmoVizItemComponent } from "@luzmo/react-embed";
 import { embedToken } from "../config/embed-token";
 import type { Layout } from "react-grid-layout";
 import type { GridChartLayout } from "../types";
+import { CustomChart } from "./custom-chart";
 
 interface DashboardGridProps {
   items: GridChartLayout[];
@@ -43,14 +44,18 @@ export function DashboardGrid({
               Remove
             </button>
           )}
-          <LuzmoVizItemComponent
-            key={item.i}
-            authKey={embedToken.authKey}
-            authToken={embedToken.authToken}
-            dashboardId={item.dashboardId}
-            itemId={item.i}
-            canFilter="all"
-          />
+          {item.isCustomChart ? (
+            <CustomChart />
+          ) : (
+            <LuzmoVizItemComponent
+              key={item.i}
+              authKey={embedToken.authKey}
+              authToken={embedToken.authToken}
+              dashboardId={item.dashboardId}
+              itemId={item.i}
+              canFilter="all"
+            />
+          )}
         </div>
       ))}
     </GridLayout>

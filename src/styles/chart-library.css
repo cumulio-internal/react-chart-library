@@ -93,11 +93,11 @@
   font-weight: 500;
   cursor: pointer;
   border: none;
-  background-color: #6366f1;
+  background-color: #4434ff;
   color: white;
   display: block;
 }
 
 .add-chart-button:hover {
-  background-color: #4f46e5;
+  background-color: #6052ff;
 }

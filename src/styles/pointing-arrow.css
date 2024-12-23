@@ -1,0 +1,40 @@
+.arrow {
+  width: 50px;
+  height: 32px;
+  position: relative;
+  cursor: pointer;
+  animation: moveHorizontal 1.5s ease-in-out infinite;
+  margin-right: 16px;
+}
+
+.arrow::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  background: #4434ff;
+  left: 0;
+  top: 11px;
+}
+
+.arrow::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: 0;
+  top: 0;
+  border-left: 25px solid #4434ff;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+}
+
+@keyframes moveHorizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}

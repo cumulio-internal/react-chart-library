@@ -3,6 +3,7 @@ import { LuzmoVizItemComponent } from "@luzmo/react-embed";
 import { embedToken } from "../config/embed-token";
 import { useChartLibrary } from "../hooks/use-chart-library";
 import type { ChartLibraryProps } from "../types";
+import { CustomChart } from "./custom-chart";
 
 export function ChartLibrary({
   onAddChart,
@@ -25,6 +26,29 @@ export function ChartLibrary({
       </div>
 
       <div className="chart-list">
+        {/* Custom chart preview */}
+        <div className="chart-item">
+          <button
+            onClick={() => {
+              onAddChart({
+                i: "custom-chart",
+                x: 0,
+                y: 0,
+                w: 12,
+                h: 8,
+                dashboardId: "custom",
+                isCustomChart: true,
+              });
+              handleClose(onClose);
+            }}
+            className="add-chart-button"
+          >
+            Add Custom Chart
+          </button>
+          <div className="chart-preview">
+            <CustomChart />
+          </div>
+        </div>
         {items.map((item) => (
           <div key={item.i} className="chart-item">
             <button

@@ -31,7 +31,7 @@
 }
 
 .edit-mode-toggle input:checked + .toggle-slider {
-  background-color: #6366f1;
+  background-color: #4434ff;
 }
 
 .edit-mode-toggle input:checked + .toggle-slider:before {

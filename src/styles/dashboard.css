@@ -71,7 +71,7 @@
 
 .add-chart-from-library-button {
   padding: 8px 16px;
-  background-color: #6366f1;
+  background-color: #4434ff;
   color: white;
   border: none;
   border-radius: 6px;
@@ -82,7 +82,7 @@
 }
 
 .add-chart-from-library-button:hover {
-  background-color: #4f46e5;
+  background-color: #6052ff;
 }
 
 /* Optional: Add a disabled state */

@@ -50,16 +50,12 @@ export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
   /**
    * Adds a new chart to the grid
    * Places the chart at the bottom of the grid and scrolls to it
-   * @param newChart - The chart configuration to add
    */
   const handleAddChart = (newChart: ExtendedLayout) => {
     const chartWithPosition = {
-      i: newChart.i,
+      ...newChart, // Preserve all properties including isCustomChart
       x: 0, // Start at the leftmost position
       y: Infinity, // Place at the bottom of the grid
-      w: newChart.w,
-      h: newChart.h,
-      dashboardId: newChart.dashboardId,
     };
 
     setItems((currentItems) => [...currentItems, chartWithPosition]);
@@ -86,16 +82,17 @@ export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
 
   /**
    * Updates the layout when charts are moved or resized
-   * Preserves the dashboardId when updating positions
-   * @param newLayout - The new layout configuration from react-grid-layout
+   * Preserves the dashboardId and isCustomChart when updating positions
    */
   const handleLayoutChange = (newLayout: Layout[]) => {
-    const updatedLayout = newLayout.map((item) => ({
-      ...item,
-      dashboardId:
-        items.find((oldItem) => oldItem.i === item.i)?.dashboardId ||
-        dashboards.defaultGrid,
-    }));
+    const updatedLayout = newLayout.map((item) => {
+      const existingItem = items.find((oldItem) => oldItem.i === item.i);
+      return {
+        ...item,
+        dashboardId: existingItem?.dashboardId || dashboards.defaultGrid,
+        isCustomChart: existingItem?.isCustomChart || false,
+      };
+    });
     setItems(updatedLayout);
   };
 

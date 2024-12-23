@@ -3,7 +3,7 @@ import { fetchDashboardItems } from "../utils/fetch-dashboard";
 import { dashboards } from "../config/embed-token";
 import type {
   DashboardItem,
-  ExtendedLayout,
+  GridChartLayout,
   ChartLibraryState,
 } from "../types";
 
@@ -12,23 +12,21 @@ import type {
  * Handles fetching available charts and managing the library modal state
  */
 export function useChartLibrary(
-  currentDashboardItems: ExtendedLayout[]
+  currentDashboardItems: GridChartLayout[]
 ): ChartLibraryState & {
   handleClose: (onClose: () => void) => void;
 } {
-  const [items, setItems] = useState<ExtendedLayout[]>([]);
+  const [items, setItems] = useState<GridChartLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
   /**
    * Transforms API response items into grid layout format
-   * @param items - Items from the API
-   * @param dashboardId - ID of the dashboard these items belong to
    */
   const createLayoutItems = (
     items: DashboardItem[],
     dashboardId: string
-  ): ExtendedLayout[] =>
+  ): GridChartLayout[] =>
     items.map((item) => ({
       i: item.id,
       x: item.position.col,
@@ -36,12 +34,12 @@ export function useChartLibrary(
       w: item.position.sizeX,
       h: item.position.sizeY,
       dashboardId,
+      isCustomChart: false,
     }));
 
   useEffect(() => {
     const getLibraryItems = async () => {
       try {
-        // Fetch items from both the library and default dashboard
         const [libraryItems, defaultItems] = await Promise.all([
           fetchDashboardItems(dashboards.chartLibrary),
           fetchDashboardItems(dashboards.defaultGrid),
