@@ -62,11 +62,13 @@ function App() {
       <div className="dashboard-footer">
         <div className="dashboard-ids">
           <div>
-            <span className="dashboard-id-label">Default Grid ID: </span>
+            <span className="dashboard-id-label">Default Dashboard ID: </span>
             <span className="dashboard-id">{dashboards.defaultGrid}</span>
           </div>
           <div>
-            <span className="dashboard-id-label">Chart Library ID: </span>
+            <span className="dashboard-id-label">
+              Chart Library Dashboard ID:{" "}
+            </span>
             <span className="dashboard-id">{dashboards.chartLibrary}</span>
           </div>
         </div>
