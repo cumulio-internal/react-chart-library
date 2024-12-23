@@ -2,6 +2,7 @@ import { ChartLibrary } from "./components/chart-library";
 import { useDashboardGrid } from "./hooks/use-dashboard-grid";
 import { DashboardGrid } from "./components/dashboard-grid";
 import { dashboards } from "./config/embed-token";
+import { useState } from "react";
 
 function App() {
   const {
@@ -40,7 +41,10 @@ function App() {
             <input
               type="checkbox"
               checked={isEditMode}
-              onChange={(e) => setIsEditMode(e.target.checked)}
+              onChange={(e) => {
+                setIsEditMode(e.target.checked);
+                setHasEverBeenEdited(true);
+              }}
             />
             <span className="toggle-slider"></span>
             <span className="toggle-label">Edit Mode</span>
