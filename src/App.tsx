@@ -16,6 +16,9 @@ function App() {
     setShowLibrary,
   } = useDashboardGrid();
 
+  // This is only used to show the pointing arrow when the user has never been in edit mode
+  const [hasEverBeenEdited, setHasEverBeenEdited] = useState(false);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -24,6 +27,7 @@ function App() {
     <div className="dashboard-container">
       <div className="dashboard-header">
         <div className="dashboard-actions">
+          {!hasEverBeenEdited && <div className="arrow"></div>}
           {isEditMode && (
             <button
               className="add-chart-from-library-button"
