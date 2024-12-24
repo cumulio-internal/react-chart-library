@@ -3,7 +3,7 @@ import { LuzmoVizItemComponent } from "@luzmo/react-embed";
 import { embedToken } from "../config/embed-token";
 import { useChartLibrary } from "../hooks/use-chart-library";
 import type { ChartLibraryProps } from "../types";
-import { CustomChart } from "./custom-chart";
+import { CustomChart } from "./custom-chart/custom-chart";
 
 export function ChartLibrary({
   onAddChart,
@@ -34,8 +34,8 @@ export function ChartLibrary({
                 i: "custom-chart",
                 x: 0,
                 y: 0,
-                w: 12,
-                h: 8,
+                w: 48,
+                h: 48,
                 dashboardId: "custom",
                 isCustomChart: true,
               });

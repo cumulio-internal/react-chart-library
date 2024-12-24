@@ -1,0 +1,123 @@
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+}
+
+.custom-chart {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+}
+
+.chart-title {
+  padding: 16px 20px;
+  font-size: 15px;
+  color: #5a5a5a;
+}
+
+.month-header-container {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 80px repeat(12, 1fr);
+}
+
+.month-label {
+  padding: 32px 0 0 0;
+  text-align: center;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  white-space: nowrap;
+  font-size: 15px;
+  color: #5a5a5a;
+}
+
+.grid-container {
+  margin-top: 80px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 80px repeat(12, 1fr);
+  min-width: min-content;
+}
+
+.room-number {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  left: 0;
+  font-size: 15px;
+  color: #5a5a5a;
+  background-color: #ffffff;
+  z-index: 2;
+}
+
+.cell {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  min-height: 60px;
+}
+
+.bed-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bed-mattress {
+  width: 80%;
+  height: 70%;
+  background-color: rgba(0, 120, 255, 0.6);
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 15%;
+}
+
+.bed-headboard {
+  width: 10%;
+  height: 110%;
+  background-color: rgba(0, 120, 255, 0.6);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.bed-footboard {
+  width: 10%;
+  height: 85%;
+  background-color: rgba(0, 120, 255, 0.6);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-top-right-radius: 3px;
+}
+
+.booking-number {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-size: 12px;
+}
