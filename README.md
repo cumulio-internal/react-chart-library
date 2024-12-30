@@ -1,50 +1,60 @@
-# React + TypeScript + Vite
+# Luzmo Chart Library example for react
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app demonstrates how to embed a Luzmo dashboard that users can edit and extend with preconfigured charts from a chart library. It serves as a reference implementation for Luzmo customers who want to add editing capabilities to their embedded dashboards without exposing users to the complexity of creating charts through Luzmo's embedded dashboard editor.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Embed a Luzmo dashboard in an editable grid
+- Connect a second Lumzo dashboard as a chart library
+- Add charts to the grid from the chart library
+- Fully customizable styling and theming
 
-## Expanding the ESLint configuration
+## How it works
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[Luzmo's Core API](https://developer.luzmo.com/api/searchDataset) is used to fetch the charts and layout of a given dashboard.
 
-- Configure the top-level `parserOptions` property like this:
+[Luzmo Flex Components](https://developer.luzmo.com/guide/flex--introduction) are used to embed the dashboard as it's individual components. The `canFilter` property helps us to automatically handle interactivty between components, even if they are from different dashboards.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+The third party library [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout) is used to place charts in an editable grid. It's configured to be identical to the grid of Luzmo's dashboard editor.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+This example does not persist user changes. In a production environment, you should implement server-side storage to save grid modifications made by individual users.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Optional extensions
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Make a dashboard editable through Luzmo's embedded dashboard editor, for example to allow users to extend the chart library.
+- Add a range of dashboards or collections to populate the chart library, instead of the single dashboard in this example.
+
+## Technology Stack
+
+- React + typescript + Vite
+- [Luzmo Flex Components](https://developer.luzmo.com/guide/flex--introduction)
+- [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- A Luzmo account with API access
+
+### Installation
+
+1. Clone the repository
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+### Customization
+
+- Change the dashboard ID's in `config/embed-token.ts`
+- Update the embed token in your `.env` file.
