@@ -1,6 +1,6 @@
 # Luzmo Chart Library example for react
 
-This app demonstrates how to embed a Luzmo dashboard that users can edit and extend with preconfigured charts from a chart library. It serves as a reference implementation for Luzmo customers who want to add editing capabilities to their embedded dashboards without exposing users to the complexity of creating charts through Luzmo's embedded dashboard editor.
+This app demonstrates how to embed a Luzmo dashboard that users can edit and extend with preconfigured charts from a chart library. It serves as a reference implementation for Luzmo customers who want to add end-user editing capabilities to their embedded dashboards without exposing users to the complexity of creating charts through Luzmo's embedded dashboard editor.
 
 ## Features
 
@@ -8,6 +8,7 @@ This app demonstrates how to embed a Luzmo dashboard that users can edit and ext
 - Connect a second Lumzo dashboard as a chart library
 - Add charts to the grid from the chart library
 - Fully customizable styling and theming
+- Charts, interactivity, querying, filtering, and user access control all automated by Luzmo.
 
 ## How it works
 
@@ -21,13 +22,14 @@ This example does not persist user changes. In a production environment, you sho
 
 ## Optional extensions
 
-- Make a dashboard editable through Luzmo's embedded dashboard editor, for example to allow users to extend the chart library.
+- Make a dashboard editable for end-users through Luzmo's [Embedded Dashboard Editor](https://academy.luzmo.com/article/r9iqfbmf), for example to allow users to extend the chart library.
 - Add a range of dashboards or collections to populate the chart library, instead of the single dashboard in this example.
 
 ## Technology Stack
 
 - React + typescript + Vite
 - [Luzmo Flex Components](https://developer.luzmo.com/guide/flex--introduction)
+- [Luzmo Core API](https://developer.luzmo.com/guide/api--introduction)
 - [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout)
 
 ## Getting Started
