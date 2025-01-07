@@ -5,7 +5,7 @@ import { dashboards } from "../config/embed-token";
 import {
   DashboardGridState,
   DashboardGridActions,
-  ExtendedLayout,
+  GridChartLayout,
 } from "../types";
 
 /**
@@ -15,7 +15,7 @@ import {
  */
 export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
   // Core state for managing dashboard items and UI state
-  const [items, setItems] = useState<ExtendedLayout[]>([]);
+  const [items, setItems] = useState<GridChartLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
@@ -52,7 +52,7 @@ export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
    * Places the chart at the bottom of the grid and scrolls to it
    * @param newChart - The chart configuration to add
    */
-  const handleAddChart = (newChart: ExtendedLayout) => {
+  const handleAddChart = (newChart: GridChartLayout) => {
     const chartWithPosition = {
       i: newChart.i,
       x: 0, // Start at the leftmost position

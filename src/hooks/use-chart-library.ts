@@ -3,7 +3,7 @@ import { fetchDashboardItems } from "../utils/fetch-dashboard";
 import { dashboards } from "../config/embed-token";
 import type {
   DashboardItem,
-  ExtendedLayout,
+  GridChartLayout,
   ChartLibraryState,
 } from "../types";
 
@@ -12,11 +12,11 @@ import type {
  * Handles fetching available charts and managing the library modal state
  */
 export function useChartLibrary(
-  currentDashboardItems: ExtendedLayout[]
+  currentDashboardItems: GridChartLayout[]
 ): ChartLibraryState & {
   handleClose: (onClose: () => void) => void;
 } {
-  const [items, setItems] = useState<ExtendedLayout[]>([]);
+  const [items, setItems] = useState<GridChartLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -28,7 +28,7 @@ export function useChartLibrary(
   const createLayoutItems = (
     items: DashboardItem[],
     dashboardId: string
-  ): ExtendedLayout[] =>
+  ): GridChartLayout[] =>
     items.map((item) => ({
       i: item.id,
       x: item.position.col,
