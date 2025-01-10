@@ -56,7 +56,12 @@ This example does not persist user changes. In a production environment, you sho
    npm run dev
    ```
 
-### Customization
+### Run with your own dashboards
 
-- Change the dashboard ID's in `config/embed-token.ts`
-- Update the embed token in your `.env` file.
+- Change the dashboard ID's in `config/embed-token.ts`. Make sure the dashboard's [responsive mode](https://academy.luzmo.com/article/0eous68b) is set to "Large screen &#x2265;1600px"
+- Add the [embed token](https://developer.luzmo.com/guide/dashboard-embedding--embed-into-application#generate-an-embed-token) in your `.env` file.
+
+  ```
+  VITE_AUTH_KEY=<your-embed-key>
+  VITE_AUTH_TOKEN=<your-embed-token>
+  ```
